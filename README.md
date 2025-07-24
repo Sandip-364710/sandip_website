@@ -93,6 +93,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 --------------------------------------------------------
+my live url
+
+[Visit the Live Website](https://sandip-website-8jdn.onrender.com/)
 
 
 
