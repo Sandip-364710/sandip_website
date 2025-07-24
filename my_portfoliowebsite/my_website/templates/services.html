@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Services Section -->
+<section id="services" class="services-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">My Services</h2>
+            <p class="section-subtitle">What I can do for you</p>
+        </div>
+        <div class="services-grid">
+            {% for service in services %}
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="{{ service.icon_class }}"></i>
+                </div>
+                <h3>{{ service.title }}</h3>
+                <p>{{ service.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

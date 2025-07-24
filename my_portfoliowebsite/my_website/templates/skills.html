@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<section id="skills" class="skills-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">My Skills</h2>
+            <p class="section-subtitle">Technologies I work with</p>
+        </div>
+
+        <div class="skills-content">
+
+            <!-- Frontend Development -->
+            <div class="skills-category">
+                <h3>Frontend Development</h3>
+                <div class="skills-grid">
+                    {% for skill in frontend_skills %}
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>{{ skill.skill_name }}</span>
+                            <span>{{ skill.skill_percentage }}%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: {{ skill.skill_percentage }}%"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Tools & Technologies -->
+            <div class="skills-category">
+                <h3>Tools & Technologies</h3>
+                <div class="skills-grid">
+                    {% for skill in tools_skills %}
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>{{ skill.skill_name }}</span>
+                            <span>{{ skill.skill_percentage }}%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: {{ skill.skill_percentage }}%"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock content %}

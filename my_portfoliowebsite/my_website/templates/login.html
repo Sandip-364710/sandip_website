@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <title>Login with Bubble Background</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body, html {
+      height: 100%;
+      overflow: hidden;
+      background: #0f2027;
+    }
+    .container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+    .left-side {
+      flex: 1;
+      position: relative;
+      background: linear-gradient(135deg, #0f2027 0%, #203a43 100%);
+      overflow: hidden;
+    }
+    #bubble-canvas {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      display: block;
+      z-index: 0;
+    }
+    .right-side {
+      flex: 1;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
+    .login-form {
+      width: 100%;
+      max-width: 400px;
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      z-index: 1;
+    }
+    .login-form:hover {
+       box-shadow: 5px 5px 5px 5px rgba(190, 95, 151, 0.66);
+    }
+    .login-form h2 {
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    .login-form input[type="email"],
+    .login-form input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 15px 0;
+      border: 1.5px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+    .login-form input[type="email"]:focus,
+    .login-form input[type="password"]:focus {
+      border-color: #0b74de;
+      outline: none;
+    }
+    .login-form button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, #4a00e0, #8e2de2);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 15px;
+    }
+    .login-form button:hover {
+      background: linear-gradient(90deg, #8e2de2, #4a00e0);
+    }
+    .login-form .switch-link {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
+    }
+    .login-form .switch-link a {
+      color: #4a00e0;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+{% if messages %}
+  <script>
+    {% for message in messages %}
+    Toastify({
+      text: "{{ message }}",
+      gravity: "top",
+      className: "info",
+      position: "right",
+      style: {
+        background: "linear-gradient(to right,#203a43)",
+      }
+    }).showToast();
+    {% endfor %}
+  </script>
+{% endif %}
+
+<div class="container">
+  <div class="left-side">
+    <canvas id="bubble-canvas"></canvas>
+  </div>
+
+ <div class="right-side">
+  <div class="form-container">
+    <a href="{% url 'home' %}" class="back-link">&larr; Back to Home</a>
+
+    <form class="login-form" method="post">
+      {% csrf_token %}
+      <h2>Login</h2>
+      <input type="email" name="username" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Sign In</button>
+      <p class="switch-link">
+        Don't have an account?
+        <a href="{% url 'signup' %}">Sign up</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+</div>
+
+<script>
+  const canvas = document.getElementById('bubble-canvas');
+  const ctx = canvas.getContext('2d');
+
+  let width, height;
+  function resize() {
+    width = canvas.width = canvas.clientWidth;
+    height = canvas.height = canvas.clientHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  class Bubble {
+    constructor() {
+      this.reset();
+    }
+
+    reset() {
+      this.x = Math.random() * width;
+      this.y = -Math.random() * 100; // start above the canvas
+      this.radius = 10 + Math.random() * 15;
+      this.speed = 0.5 + Math.random() * 1.5;
+      this.alpha = 0.2 + Math.random() * 0.3;
+      this.alphaChange = 0.002 + Math.random() * 0.004;
+      this.growing = true;
+    }
+
+    update() {
+      this.y += this.speed;
+
+      if (this.growing) {
+        this.alpha += this.alphaChange;
+        if (this.alpha >= 0.6) this.growing = false;
+      } else {
+        this.alpha -= this.alphaChange;
+        if (this.alpha <= 0.2) this.growing = true;
+      }
+
+      if (this.y - this.radius > height) this.reset();
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  const bubbles = [];
+  const maxBubbles = 50;
+
+  for (let i = 0; i < maxBubbles; i++) {
+    bubbles.push(new Bubble());
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    bubbles.forEach(bubble => {
+      bubble.update();
+      bubble.draw();
+    });
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+</script>
+
+</body>
+</html>
