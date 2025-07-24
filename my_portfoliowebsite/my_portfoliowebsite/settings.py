@@ -27,7 +27,8 @@ SECRET_KEY = 'django-insecure-@#s^op6pa)^yc=!kixracbq@v4a@esfu1tiw0t%t#+1)%0zu@s
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 
-ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ["https://sandip-website-8jdn.onrender.com"]
+ALLOWED_HOSTS = ["sandip-website-8jdn.onrender.com"]
 
 
 # Application definition
