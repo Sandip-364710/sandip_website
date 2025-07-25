@@ -62,7 +62,24 @@
     }
 
     .login-form:hover {
-      box-shadow: 5px 5px 5px 5px rgba(190, 95, 151, 0.66);
+      box-shadow: 5px 10px 5px 10px linear-gradient(135deg, #0f2027, #203a43);
+    }
+
+    .back-home-link {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .back-home-link a {
+      color: #4a00e0;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      display: inline-block;
+    }
+
+    .back-home-link a:hover {
+      text-decoration: underline;
     }
 
     .login-form h2 {
@@ -118,7 +135,6 @@
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
-        
       }
 
       .left-side {
@@ -142,7 +158,10 @@
       .login-form {
         background-color: rgba(255, 255, 255, 0.95);
       }
-      
+
+      .back-home-link {
+        margin-bottom: 25px;
+      }
     }
   </style>
 </head>
@@ -154,7 +173,7 @@
   Toastify({
     text: "{{ message }}",
     gravity: "top",
-    position: "right",
+    position: "center",
     style: {
       background: "linear-gradient(to right,#203a43)",
     }
@@ -169,7 +188,11 @@
   </div>
 
   <div class="right-side">
+
     <form class="login-form" method="post">
+      <div class="back-home-link">
+        <a href="{% url 'home' %}">&larr; Back to Home</a>
+      </div>
       {% csrf_token %}
       <h2>Login</h2>
       <input type="email" name="username" placeholder="Email" required />
