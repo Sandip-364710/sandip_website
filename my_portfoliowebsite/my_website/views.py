@@ -8,6 +8,10 @@ from django.contrib import messages
 from .forms import CustomUserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect
+from django.template.loader import render_to_string
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
+from django.utils.html import strip_tags
 
 class HomePageView(ListView):
     model = HomeView
@@ -43,14 +47,46 @@ class SkillsPageView(TemplateView):
         return context
     
 
+# class ContactPageView(CreateView):
+#     template_name = "contact.html"
+#     model = Contact
+#     fields = ['name', 'email', 'subject', 'message']
+#     success_url = reverse_lazy('home')
+#     def form_valid(self, form):
+#          messages.success(self.request, 'Thanks for your message')  # Add success message
+#          return super().form_valid(form)
+
 class ContactPageView(CreateView):
     template_name = "contact.html"
     model = Contact
-    fields = ['name', 'email', 'subject', 'message']
-    success_url = reverse_lazy('home')
+    fields = ["name", "email", "subject", "message"]
+    success_url = reverse_lazy("home")
+
     def form_valid(self, form):
-         messages.success(self.request, 'Thanks for your message')  # Add success message
-         return super().form_valid(form)
+        response = super().form_valid(form)
+
+        # Get user info
+        name = form.cleaned_data.get("name")
+        email = form.cleaned_data.get("email")
+
+        # Render the HTML email from template
+        html_message = render_to_string("contact_email.html", {"name": name})
+        text_message = strip_tags(html_message)
+
+        email_message = EmailMultiAlternatives(
+            subject="Thank You for Contacting Us!",
+            body=text_message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[email],
+        )
+        email_message.attach_alternative(html_message, "text/html")
+        email_message.send()
+
+        messages.success(
+            self.request, "Thanks for your message. A confirmation email has been sent."
+        )
+        return response
+
 # signup    
 class SignupView(CreateView):
     template_name = 'signup.html'
