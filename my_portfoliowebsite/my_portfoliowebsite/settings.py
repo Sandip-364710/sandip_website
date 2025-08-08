@@ -146,6 +146,14 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'jakhaniyasandip41@gmail.com'  # Your email address (this will be used for authentication)
+EMAIL_HOST_PASSWORD = 'znuf mysr visv rscj'  # Your Gmail password or App Password
+DEFAULT_FROM_EMAIL = 'jakhaniyasandip41@gmail.com'
+
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home' 
 LOGOUT_REDIRECT_URL = 'login'
