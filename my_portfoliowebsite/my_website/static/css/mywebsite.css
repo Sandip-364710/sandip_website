@@ -779,11 +779,14 @@ section {
     border: 1px solid var(--glass-border);
     border-radius: 15px;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .contact-item:hover {
-    transform: translateX(10px);
-    box-shadow: var(--shadow-medium);
+    transform: translateX(10px) scale(1.02);
+    box-shadow: var(--shadow-medium), 0 8px 20px rgba(0, 0, 0, 0.2);
+    border-color: var(--accent-color);
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .contact-icon {
