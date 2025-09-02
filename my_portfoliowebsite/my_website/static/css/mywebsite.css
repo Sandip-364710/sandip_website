@@ -779,12 +779,16 @@ section {
     border: 1px solid var(--glass-border);
     border-radius: 15px;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .contact-item:hover {
-    transform: translateX(10px);
-    box-shadow: var(--shadow-medium);
+    transform: translateX(10px) scale(1.02);
+    box-shadow: var(--shadow-medium), 0 8px 20px rgba(0, 0, 0, 0.2);
+    border-color: var(--accent-color);
+    background: rgba(255, 255, 255, 0.15);
 }
+
 
 .contact-icon {
     width: 50px;
@@ -903,23 +907,41 @@ section {
         display: flex;
     }
 
-    .nav-menu {
-        position: fixed;
-        left: -100%;
-        top: 70px;
-        flex-direction: column;
-        background: var(--glass-bg);
-        backdrop-filter: blur(20px);
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        box-shadow: var(--shadow-medium);
-        padding: 2rem 0;
-    }
+    .nav-menu .nav-item a {
+    display: inline-block;
+    width: 90%;
+    margin: 0.5rem auto;
+    padding: 0.75rem 1rem;
+    background-color: rgba(255, 255, 255, 0.05); /* light glass look */
+    border-radius: 8px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
 
-    .nav-menu.active {
-        left: 0;
-    }
+.nav-menu .nav-item a:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* slightly more on hover */
+}
+.nav-menu .nav-item form button {
+    display: inline-block;
+    width: 90%;
+    margin: 0.5rem auto;
+    padding: 0.75rem 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-weight: bold;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.nav-menu .nav-item form button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 
     .theme-dropdown {
         right: -50px;

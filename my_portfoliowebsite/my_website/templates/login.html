@@ -3,38 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <title>Login with Bubble Background</title>
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <title>Login</title>
   <style>
     * {
       box-sizing: border-box;
       margin: 0; padding: 0;
-      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
     }
-    body, html {
+
+    html, body {
       height: 100%;
+      width: 100%;
       overflow: hidden;
-      background: #0f2027;
     }
+
     .container {
       display: flex;
       height: 100vh;
       width: 100vw;
     }
+
     .left-side {
       flex: 1;
+      background: linear-gradient(135deg, #0f2027, #203a43);
       position: relative;
-      background: linear-gradient(135deg, #0f2027 0%, #203a43 100%);
       overflow: hidden;
+      display: block;
     }
+
     #bubble-canvas {
       position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      display: block;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       z-index: 0;
     }
+
     .right-side {
       flex: 1;
       background: #f4f6f8;
@@ -42,7 +47,10 @@
       justify-content: center;
       align-items: center;
       padding: 40px;
+      position: relative;
+      z-index: 1;
     }
+
     .login-form {
       width: 100%;
       max-width: 400px;
@@ -51,31 +59,49 @@
       border-radius: 20px;
       box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
       text-align: center;
-      z-index: 1;
     }
+
     .login-form:hover {
-       box-shadow: 5px 5px 5px 5px rgba(190, 95, 151, 0.66);
+      box-shadow: 5px 10px 5px 10px linear-gradient(135deg, #0f2027, #203a43);
     }
+
+    .back-home-link {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .back-home-link a {
+      color: #4a00e0;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      display: inline-block;
+    }
+
+    .back-home-link a:hover {
+      text-decoration: underline;
+    }
+
     .login-form h2 {
       font-weight: 700;
       color: #333;
       margin-bottom: 15px;
     }
-    .login-form input[type="email"],
-    .login-form input[type="password"] {
+
+    .login-form input {
       width: 100%;
       padding: 12px 15px;
       margin: 15px 0;
       border: 1.5px solid #ddd;
       border-radius: 10px;
       font-size: 16px;
-      transition: border-color 0.3s ease;
     }
-    .login-form input[type="email"]:focus,
-    .login-form input[type="password"]:focus {
+
+    .login-form input:focus {
       border-color: #0b74de;
       outline: none;
     }
+
     .login-form button {
       width: 100%;
       padding: 14px;
@@ -85,41 +111,75 @@
       color: white;
       font-size: 18px;
       font-weight: 700;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
       margin-top: 15px;
+      cursor: pointer;
     }
+
     .login-form button:hover {
       background: linear-gradient(90deg, #8e2de2, #4a00e0);
     }
-    .login-form .switch-link {
+
+    .switch-link {
       margin-top: 20px;
       font-size: 14px;
       color: #555;
     }
-    .login-form .switch-link a {
+
+    .switch-link a {
       color: #4a00e0;
       text-decoration: none;
       font-weight: 600;
+    }
+
+    /* Responsive for mobile */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .left-side {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+
+      .right-side {
+        flex: none;
+        width: 100%;
+        padding: 20px;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #0f2027, #203a43);
+      }
+
+      .login-form {
+        background-color: rgba(255, 255, 255, 0.95);
+      }
+
+      .back-home-link {
+        margin-bottom: 25px;
+      }
     }
   </style>
 </head>
 <body>
 
 {% if messages %}
-  <script>
-    {% for message in messages %}
-    Toastify({
-      text: "{{ message }}",
-      gravity: "top",
-      className: "info",
-      position: "right",
-      style: {
-        background: "linear-gradient(to right,#203a43)",
-      }
-    }).showToast();
-    {% endfor %}
-  </script>
+<script>
+  {% for message in messages %}
+  Toastify({
+    text: "{{ message }}",
+    gravity: "top",
+    position: "center",
+    style: {
+      background: "linear-gradient(to right,#203a43)",
+    }
+  }).showToast();
+  {% endfor %}
+</script>
 {% endif %}
 
 <div class="container">
@@ -127,11 +187,12 @@
     <canvas id="bubble-canvas"></canvas>
   </div>
 
- <div class="right-side">
-  <div class="form-container">
-    <a href="{% url 'home' %}" class="back-link">&larr; Back to Home</a>
+  <div class="right-side">
 
     <form class="login-form" method="post">
+      <div class="back-home-link">
+        <a href="{% url 'home' %}">&larr; Back to Home</a>
+      </div>
       {% csrf_token %}
       <h2>Login</h2>
       <input type="email" name="username" placeholder="Email" required />
@@ -143,8 +204,6 @@
       </p>
     </form>
   </div>
-</div>
-
 </div>
 
 <script>
@@ -166,7 +225,7 @@
 
     reset() {
       this.x = Math.random() * width;
-      this.y = -Math.random() * 100; // start above the canvas
+      this.y = -Math.random() * 100;
       this.radius = 10 + Math.random() * 15;
       this.speed = 0.5 + Math.random() * 1.5;
       this.alpha = 0.2 + Math.random() * 0.3;
@@ -176,7 +235,6 @@
 
     update() {
       this.y += this.speed;
-
       if (this.growing) {
         this.alpha += this.alphaChange;
         if (this.alpha >= 0.6) this.growing = false;
@@ -198,7 +256,6 @@
 
   const bubbles = [];
   const maxBubbles = 50;
-
   for (let i = 0; i < maxBubbles; i++) {
     bubbles.push(new Bubble());
   }

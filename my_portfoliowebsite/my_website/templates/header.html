@@ -4,12 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio - Python Developer</title>
-    <link rel="stylesheet" href="\static\css\mywebsite.css">
+    <link rel="stylesheet" href="/static/css/mywebsite.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+   
+
 </head>
+<style>
+/* Responsive styles */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        backdrop-filter: blur(20px);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s ease;
+        box-shadow: var(--shadow-medium);
+        padding: 2rem 0;
+        z-index: 999;
+    }
+
+    .nav-menu.active {
+        left: 0;
+        
+    }
+
+    .nav-item {
+        margin: 0.1rem 0;
+        
+    }
+    .nav-item a,
+    .nav-item form button {
+        display: block;
+        width: 90%;
+        margin: 0 auto;
+        padding: 0.10rem 1rem;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        color: var(--text-primary);
+        font-weight: 500;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: background 0.3s ease;
+    }
+
+    .nav-item a:hover,
+    .nav-item form button:hover {
+        background-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .nav-item form {
+        margin: 0;
+        padding: 0;
+    }
+}
+</style>
 <body>
      {% if messages %}
       <script>

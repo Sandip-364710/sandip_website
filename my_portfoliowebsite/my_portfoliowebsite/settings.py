@@ -26,9 +26,9 @@ SECRET_KEY = 'django-insecure-@#s^op6pa)^yc=!kixracbq@v4a@esfu1tiw0t%t#+1)%0zu@s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-CSRF_TRUSTED_ORIGINS = ["https://my-website-4u4d.onrender.com"]
-ALLOWED_HOSTS = ["my-website-4u4d.onrender.com"]
-
+# CSRF_TRUSTED_ORIGINS = ["https://my-website-4u4d.onrender.com"]
+# ALLOWED_HOSTS  = ["my-website-4u4d.onrender.com"]
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -142,6 +142,17 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'jakhaniyasandip41@gmail.com'  # Your email address (this will be used for authentication)
+EMAIL_HOST_PASSWORD = 'znuf mysr visv rscj'  # Your Gmail password or App Password
+DEFAULT_FROM_EMAIL = 'jakhaniyasandip41@gmail.com'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
