@@ -97,6 +97,13 @@ my live url
 
 [Visit the Live Website](https://sandip-website-8jdn.onrender.com/)
 
+ **Sign Up**
+
+## ✨ Sign Up Page
+
+![Signup Page](https://github.com/user-attachments/assets/a7e3f485-ae48-4bea-a7a2-3b6791f58703)
+
+<img width="1364" height="602" alt="Signup_page" src="https://github.com/user-attachments/assets/ca926b63-14db-4b74-8cf7-0e9ff1a36b4a" />
 
 
 
