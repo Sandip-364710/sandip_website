@@ -134,7 +134,7 @@ urlpatterns = [
 
 ---
 
-## 🌐 Live Demo
+## 🌐 My Live website
 
 [Visit the Live Website](https://sandip-website-8jdn.onrender.com/)
 
