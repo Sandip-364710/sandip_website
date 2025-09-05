@@ -24,17 +24,17 @@ class HomePageView(ListView):
         context['tools_skills'] = SkillsView.objects.filter(category='Tools & Technologies')
         return context
 
-class AboutpageView(ListView):
+class AboutpageView(LoginRequiredMixin,ListView):
     model = AboutView
     template_name = "about.html"
     context_object_name = 'aboutviews'
 
-class ServicePageView(ListView):
+class ServicePageView(LoginRequiredMixin,ListView):
     template_name = "services.html"
     model = ServiceView
     context_object_name = 'services'
 
-class SkillsPageView(TemplateView):
+class SkillsPageView(LoginRequiredMixin,TemplateView):
     template_name = "skills.html"
 
     def get_context_data(self, **kwargs):
@@ -44,7 +44,7 @@ class SkillsPageView(TemplateView):
         return context
     
 
-class ContactPageView(CreateView):
+class ContactPageView(LoginRequiredMixin,CreateView):
     template_name = "contact.html"
     model = Contact
     fields = ['name', 'email', 'subject', 'message']
