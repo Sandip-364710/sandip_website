@@ -162,6 +162,78 @@ body {
     gap: 2rem;
 }
 
+/* Brand logo */
+.nav-logo { display: flex; align-items: center; min-width: 130px; }
+.nav-logo .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+.nav-logo .brand-svg {
+    display: block;
+    height: 34px;
+    width: auto;
+    color: var(--text-primary); /* wordmark uses currentColor */
+}
+.nav-logo .brand-text {
+    font-weight: 800;
+    font-size: 1.1rem;
+    line-height: 1;
+    background: linear-gradient(90deg, var(--text-primary), var(--secondary-color), var(--accent-color), var(--text-primary));
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: brandShift 8s ease-in-out infinite;
+}
+
+/* Badge monogram */
+.nav-logo .brand-badge {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #ffffff !important;
+    -webkit-text-stroke: 0 transparent;
+    text-rendering: optimizeLegibility;
+    font-weight: 900;
+    letter-spacing: 0;
+    font-size: 1.25rem;
+    line-height: 1;
+    font-family: 'Poppins', Arial, sans-serif;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+    position: relative;
+    box-shadow: 0 6px 14px -8px var(--primary-color);
+    text-transform: uppercase;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.nav-logo .brand-badge::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    opacity: 0.6;
+    filter: blur(8px);
+    z-index: -1;
+}
+@media (max-width: 768px) {
+  .nav-logo .brand-badge { width: 30px; height: 30px; font-size: 1.15rem; }
+}
+
+@keyframes brandShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@media (max-width: 768px) {
+  .nav-logo .brand-svg { height: 28px; }
+}
+
 .nav-link {
     color: var(--text-primary);
     text-decoration: none;
