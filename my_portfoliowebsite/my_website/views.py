@@ -66,31 +66,34 @@ class ContactPageView(CreateView):
     model = Contact
     fields = ["name", "email", "subject", "message"]
     success_url = reverse_lazy("home")
-
     def form_valid(self, form):
-        response = super().form_valid(form)
+        messages.success(self.request, "Thanks for your message")  # Add success message
+        return super().form_valid(form)
 
-        # Get user info
-        name = form.cleaned_data.get("name")
-        email = form.cleaned_data.get("email")
+    # def form_valid(self, form):
+    #     response = super().form_valid(form)
 
-        # Render the HTML email from template
-        html_message = render_to_string("contact_email.html", {"name": name})
-        text_message = strip_tags(html_message)
+    #     # Get user info
+    #     name = form.cleaned_data.get("name")
+    #     email = form.cleaned_data.get("email")
 
-        email_message = EmailMultiAlternatives(
-            subject="Thank You for Contacting Us!",
-            body=text_message,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            to=[email],
-        )
-        email_message.attach_alternative(html_message, "text/html")
-        email_message.send()
+    #     # Render the HTML email from template
+    #     html_message = render_to_string("contact_email.html", {"name": name})
+    #     text_message = strip_tags(html_message)
 
-        messages.success(
-            self.request, "Thanks for your message. A confirmation email has been sent."
-        )
-        return response
+    #     email_message = EmailMultiAlternatives(
+    #         subject="Thank You for Contacting Us!",
+    #         body=text_message,
+    #         from_email=settings.DEFAULT_FROM_EMAIL,
+    #         to=[email],
+    #     )
+    #     email_message.attach_alternative(html_message, "text/html")
+    #     email_message.send()
+
+    #     messages.success(
+    #         self.request, "Thanks for your message. A confirmation email has been sent."
+    #     )
+    #     return response
 
 
 # signup
