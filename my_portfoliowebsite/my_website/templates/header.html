@@ -1,9 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio - Python Developer</title>
+    <link rel="icon" href="{% static 'favicon.svg' %}" type="image/svg+xml">
+    <link rel="alternate icon" href="{% static 'favicon.svg' %}">
     <link rel="stylesheet" href="/static/css/mywebsite.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -89,38 +92,41 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <span>Portfolio</span>
+                <a href="{% url 'home' %}" class="brand" aria-label="Home">
+                    <span class="brand-badge" aria-hidden="true">S</span>
+                    <span class="brand-text">Sandip Patel</span>
+                </a>
             </div>
-          <ul class="nav-menu">
-    {% if user.is_authenticated %}
-        <li class="nav-item">
-            <a href="{% url 'home' %}" style="color: var(--text-primary); text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative;">Home</a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'about' %}" style="color: var(--text-primary); text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative;">About</a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'services' %}" style="color: var(--text-primary); text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative;">Services</a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'skills' %}" style="color: var(--text-primary); text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative;">Skills</a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'contact' %}" style="color: var(--text-primary); text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative;">Contact</a>
-        </li>
-        <li class="nav-item">
-            <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit" style="background: transparent; border: none; color: var(--text-primary); font-size: 15px; font-weight: bold; cursor: pointer;">Logout</button>
-            </form>
-        </li>
-    {% else %}
-        <li class="nav-item">
-            <a href="{% url 'login' %}" style="color: var(--text-primary); text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative; margin-right: 1rem;">Login</a>
-            <a href="{% url 'signup' %}" style="color: var(--text-primary); text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative;">Sign Up</a>
-        </li>
-    {% endif %}
-</ul>
+            <ul class="nav-menu">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'home' %}" style="color: var(--text-primary); text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'about' %}" style="color: var(--text-primary); text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative;">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'services' %}" style="color: var(--text-primary); text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative;">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'skills' %}" style="color: var(--text-primary); text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative;">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'contact' %}" style="color: var(--text-primary); text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative;">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" style="background: transparent; border: none; color: var(--text-primary); font-size: 15px; font-weight: bold; cursor: pointer;">Logout</button>
+                    </form>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'login' %}" style="color: var(--text-primary); text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative; margin-right: 1rem;">Login</a>
+                    <a href="{% url 'signup' %}" style="color: var(--text-primary); text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative;">Sign Up</a>
+                </li>
+            {% endif %}
+            </ul>
 
             <div class="nav-controls">
                 <div class="theme-selector">
