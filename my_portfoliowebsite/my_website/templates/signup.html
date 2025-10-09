@@ -3,8 +3,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Sign Up - Portfolio</title>
+  <title>Sign Up - Sandip Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="{% static 'favicon.svg' %}" type="image/svg+xml">
+  <link rel="alternate icon" href="{% static 'favicon.svg' %}">
 
   <!-- Toastify -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
@@ -153,15 +155,24 @@
         font-size: 3rem;
       }
     }
+    /* Auth brand (logo) */
+    .auth-brand { position: fixed; top: 18px; left: 18px; z-index: 3; display: inline-flex; align-items: center; gap: 10px; }
+    .auth-badge { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; font-weight: 900; font-size: 1.1rem; text-shadow: 0 1px 2px rgba(0,0,0,.25); }
+    .auth-brand span { font-weight: 800; font-size: 1.05rem; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.25); }
   </style>
 </head>
 <body>
+  <!-- Brand logo -->
+  <div class="auth-brand">
+    <div class="auth-badge">S</div>
+    <span>Sandip</span>
+  </div>
 
   <!-- Galaxy Background Canvas -->
   <canvas id="galaxy-bg"></canvas>
 
   <!-- Name Overlay -->
-  <div class="name-overlay">Sandip</div>
+  <div class="name-overlay">Sandip Patel</div>
 
   <!-- Centered Signup Form -->
   <div class="auth-container">
