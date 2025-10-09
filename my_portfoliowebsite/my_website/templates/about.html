@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 
 {%for aboutview in aboutviews %} 
@@ -34,13 +35,7 @@
                     </div>
                 </div>
                 <div class="about-image">
-                    <div class="about-card">
-                        <div class="card-content">
-                            <i class="fas fa-code"></i>
-                            <h4>Python Developer</h4>
-                            <p>I am a Python Developer, building digital experiences with clean code and creative design.</p>
-                        </div>
-                    </div>
+                    <img src="{% static 'qpci7631.jpg' %}" alt="About Image" class="about-photo"/>
                 </div>
             </div>
         </div>
