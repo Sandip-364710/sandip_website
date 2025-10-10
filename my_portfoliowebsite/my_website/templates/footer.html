@@ -9,5 +9,23 @@
     </footer>
 
     <script src="\static\js\my_website.js"></script>
+    <script>
+        // Disable right-click & inspect keys
+        document.oncontextmenu = function() { return false; };
+        document.onkeydown = function(e) {
+            // Disable F12
+            if (e.keyCode == 123) return false;
+            // Disable Ctrl+Shift+I or Ctrl+Shift+J
+            if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) return false;
+            // Disable Ctrl+U, Ctrl+S, Ctrl+C
+            if (e.ctrlKey && (e.keyCode == 85 || e.keyCode == 83 || e.keyCode == 67)) return false;
+        };
+    
+        // Optional console warning
+        setTimeout(() => {
+            console.log("%c⚠️ Warning!", "color:red; font-size:30px;");
+            console.log("Developer tools are disabled on this site.");
+        }, 1000);
+        </script>
 </body>
 </html> 
