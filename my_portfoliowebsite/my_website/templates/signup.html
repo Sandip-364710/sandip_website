@@ -32,7 +32,28 @@
       font-family: 'Poppins', sans-serif;
       overflow: hidden;
       position: relative;
-      background: linear-gradient(135deg, rgba(192, 48, 180, 0.88), rgb(59, 32, 67));
+      /* New deep space blue/teal gradient */
+      background: radial-gradient(1200px 800px at 0% 0%, rgba(37, 99, 235, 0.18), transparent 60%),
+                  radial-gradient(900px 600px at 100% 30%, rgba(16, 185, 129, 0.14), transparent 60%),
+                  linear-gradient(135deg, #0b1020 0%, #0f172a 50%, #0b132b 100%);
+    }
+
+    /* Soft animated aurora glow overlay (between canvas and form) */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: -20% -10% -20% -10%;
+      background: conic-gradient(from 180deg at 50% 50%, rgba(37,99,235,0.18), rgba(16,185,129,0.16), rgba(59,130,246,0.18), rgba(37,99,235,0.18));
+      filter: blur(72px);
+      opacity: 0.6;
+      animation: aurora 14s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 1; /* canvas is 0, form container is 2 */
+    }
+
+    @keyframes aurora {
+      0% { transform: translateY(-6%) scale(1); opacity: 0.55; }
+      100% { transform: translateY(6%) scale(1.04); opacity: 0.75; }
     }
 
     /* Full page canvas background */
@@ -69,69 +90,91 @@
     .auth-container {
       position: relative;
       z-index: 2; /* above canvas and name */
-      max-width: 400px;
+      max-width: 440px;
       margin: auto;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(255 255 255 / 0.95);
-      border-radius: 20px;
-      padding: 40px;
-      box-shadow: 0 0 30px rgba(189, 47, 177, 0.6);
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 18px;
+      padding: 42px 34px;
+      box-shadow: 0 18px 48px rgba(0,0,0,0.18);
       text-align: center;
       overflow-y: auto;
+      backdrop-filter: blur(8px);
+    }
+    .auth-container::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(168,85,247,0.06));
+      pointer-events: none;
+      border-radius: 18px;
     }
     .auth-container:hover {
-      box-shadow: 5px 5px 10px 10px rgba(189, 47, 177, 0.04);
+      box-shadow: 0 22px 56px rgba(0,0,0,0.22);
+      transform: translateY(calc(-50% - 2px));
+      transition: all .25s ease;
     }
 
     .auth-container h2 {
-      font-weight: 600;
-      color: #333;
+      font-weight: 800;
+      color: #1f2937;
+      margin-bottom: 6px;
+      letter-spacing: .2px;
+    }
+
+    .auth-container .subtitle {
+      font-size: 0.95rem;
+      color: #6b7280;
       margin-bottom: 10px;
     }
 
-    .auth-container p {
-      font-size: 14px;
-      color: #777;
+    .input-group {
+      position: relative;
+      margin-top: 16px;
+      text-align: left;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 14px 46px 14px 46px;
+      border-radius: 12px;
+      border: 1.5px solid #e5e7eb;
+      font-size: 15.5px;
+      transition: all 0.2s ease;
+      background: #fff;
+      color: #1f2937;
+    }
+    .input-group input:focus {
+      border-color: #8b5cf6;
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.12);
+    }
+    .input-icon {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: #6b7280; font-size: 1rem; pointer-events: none;
+    }
+    .toggle-password {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      background: transparent; border: none; color: #6b7280; cursor: pointer; padding: 6px; font-size: 1rem;
     }
 
-   .auth-container input {
-  width: 100%;
-  padding: 12px;
-  margin: 15px 0;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  transition: all 0.3s ease;
-  outline: none; /* Remove default blue outline */
-  box-shadow: none;
-  background-color: #fff;
-  cursor: text;
-}
 
-.auth-container input:focus {
-  border-color: #8e2de2;
-  box-shadow: 0 0 8px 2px rgba(142, 45, 226, 0.6);
-  transform: scale(1.03);
-  background-color: #fafafa;
-}
-
-
-    .auth-container button {
+    .auth-container button[type="submit"] {
       width: 100%;
-      padding: 12px;
-      background: linear-gradient(90deg, #4a00e0, #8e2de2);
+      padding: 14px 16px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
       color: white;
       border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 16px;
-      transition: 0.3s;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 17px;
+      transition: 0.2s;
       cursor: pointer;
+      margin-top: 14px;
     }
 
-    .auth-container button:hover {
-      background: linear-gradient(90deg, #8e2de2, #4a00e0);
+    .auth-container button[type="submit"]:hover {
+      filter: brightness(1.05);
     }
 
     .switch-link {
@@ -148,8 +191,8 @@
     /* Responsive */
     @media (max-width: 500px) {
       .auth-container {
-        width: 90%;
-        padding: 30px 20px;
+        width: 92%;
+        padding: 30px 22px;
       }
       .name-overlay {
         font-size: 3rem;
@@ -172,17 +215,34 @@
   <canvas id="galaxy-bg"></canvas>
 
   <!-- Name Overlay -->
-  <div class="name-overlay">Sandip</div>
+  <div class="name-overlay">Sandip Patel</div>
 
   <!-- Centered Signup Form -->
   <div class="auth-container">
-    <h2>Create Account</h2>
-     <p>Join Sandip Patel's platform</p>
+    <h2>Create your account</h2>
+    <p class="subtitle">Join Sandip Patel's platform</p>
     <form method="post">
       {% csrf_token %}
-      <input type="email" name="email" placeholder="Email" required />
-      <input type="password" name="password1" placeholder="Password" required />
-      <input type="password" name="password2" placeholder="Confirm Password" required />
+
+      <div class="input-group">
+        <span class="input-icon">📧</span>
+        <input type="email" name="email" placeholder="Email address" autocomplete="email" required />
+      </div>
+
+      <div class="input-group">
+        <span class="input-icon">🔒</span>
+        <input id="password1" type="password" name="password1" placeholder="Password" autocomplete="new-password" required />
+        <button type="button" class="toggle-password" id="togglePwd1" aria-label="Show password">👁️</button>
+      </div>
+
+      <div class="input-group">
+        <span class="input-icon">🔒</span>
+        <input id="password2" type="password" name="password2" placeholder="Confirm password" autocomplete="new-password" required />
+        <button type="button" class="toggle-password" id="togglePwd2" aria-label="Show password">👁️</button>
+      </div>
+
+      <div id="pwdHint" style="text-align:left; font-size: 0.9rem; margin-top:10px; color:#ef4444; display:none;">Passwords do not match.</div>
+
       <button type="submit">Sign Up</button>
       <p class="switch-link">Already have an account? <a href="{% url 'login' %}">Login</a></p>
     </form>
@@ -247,6 +307,38 @@
     }
 
     animate();
+  </script>
+
+  <script>
+    // Password visibility toggles
+    const p1 = document.getElementById('password1');
+    const p2 = document.getElementById('password2');
+    const t1 = document.getElementById('togglePwd1');
+    const t2 = document.getElementById('togglePwd2');
+    const hint = document.getElementById('pwdHint');
+
+    function toggle(btn, input) {
+      btn.addEventListener('click', () => {
+        const showing = input.getAttribute('type') === 'text';
+        input.setAttribute('type', showing ? 'password' : 'text');
+        btn.textContent = showing ? '👁️' : '🙈';
+        btn.setAttribute('aria-label', showing ? 'Show password' : 'Hide password');
+      });
+    }
+    if (t1 && p1) toggle(t1, p1);
+    if (t2 && p2) toggle(t2, p2);
+
+    // Lightweight live match hint
+    function checkMatch() {
+      if (!p1 || !p2 || !hint) return;
+      const mismatch = p1.value && p2.value && p1.value !== p2.value;
+      hint.style.display = mismatch ? 'block' : 'none';
+      hint.style.color = mismatch ? '#ef4444' : '#10b981';
+    }
+    if (p1 && p2) {
+      p1.addEventListener('input', checkMatch);
+      p2.addEventListener('input', checkMatch);
+    }
   </script>
 
 </body>
